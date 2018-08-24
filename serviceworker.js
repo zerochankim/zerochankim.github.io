@@ -1,2 +1,30 @@
-"use strict";!function(i){function n(t){if(o[t])return o[t].exports;var e=o[t]={exports:{},id:t,loaded:!1};return i[t].call(e.exports,e,e.exports,n),e.loaded=!0,e.exports}var o={};return n.m=i,n.c=o,n.p="/resources/v127.0.3",n(0)}([function(i,n,o){var t=1,e="/?swver="+t,a="ft-app-"+t,r=o(1);console.log("SW",t),self.addEventListener("install",function(i){self.skipWaiting(),i.waitUntil(caches.open(a).then(function(i){var n=i.add(e),o=r.basics().concat(r.fontDefinitions("woff"));return o.forEach(function(n){return i.add(n)}),n}))}),self.addEventListener("fetch",function(i){i.respondWith(caches.match(i.request).then(function(n){return n?n:fetch(i.request)}).catch(function(n){var o=new URL(i.request.url),t=!0;if(o.origin&&location&&location.origin&&o.origin!==location.origin&&(t=!1),/^\/(?:api|resources|lib|policies|checkversion|clamoproxy)(?:[?\/])/.test(o.pathname)&&(t=!1),t)return caches.match(e);throw n}))})},function(i,n){var o=8;n.basics=function(){return["/favicon.ico","/resources/jquery.min.js","/lib/img/logo-images/brand-ft-masthead.svg","/lib/img/logo-images/brand-ft-weekend-masthead.svg","/lib/img/icons/google.svg","/lib/img/icons/notifications-icon.svg","/lib/img/spriteparts/spinner-oval-claret.svg","/lib/img/ios-upgrade-migration/download-0.5x.png","/lib/img/ios-upgrade-migration/download-1x.png","/lib/img/ios-upgrade-migration/download-2x.png","/lib/img/ios-upgrade-migration/download-3x.png","/lib/img/ios-upgrade-migration/tablet-0.5x.png","/lib/img/ios-upgrade-migration/tablet-1x.png","/lib/img/ios-upgrade-migration/tablet-2x.png","/lib/img/ios-upgrade-migration/tablet-3x.png","/lib/img/ios-upgrade-migration/phone-0.5x.png","/lib/img/ios-upgrade-migration/phone-1x.png","/lib/img/ios-upgrade-migration/phone-2x.png","/lib/img/ios-upgrade-migration/phone-3x.png"]},n.fontDefinitions=function(i){return["/lib/fonts/ft-app-icons."+i+"?v="+o,"/lib/fonts/FedraSansThin."+i,"/lib/fonts/FedraSansHeavy."+i,"/lib/fonts/Roboto-Medium.woff2","/lib/fonts/o-fonts/FinancierDisplayWeb-Bold.woff","/lib/fonts/o-fonts/FinancierDisplayWeb-Regular.woff","/lib/fonts/o-fonts/FinancierDisplayWeb-MediumItalic.woff","/lib/fonts/o-fonts/MetricWeb-Semibold.woff","/lib/fonts/o-fonts/MetricWeb-Regular.woff"]}}]);
-//# sourceMappingURL=serviceworker-4a0b6b367336fad3f164.min.js.map?ver=v127.0.3
+
+// Files to cache
+var cacheName = 'js13kPWA-v1';
+
+// Installing Service Worker
+self.addEventListener('install', function(e) {
+  console.log('[Service Worker] Install');
+  e.waitUntil(
+    caches.open(cacheName).then(function(cache) {
+      console.log('[Service Worker] Caching all: app shell and content');
+      return cache.addAll([]);
+    })
+  );
+});
+
+// Fetching content using Service Worker
+self.addEventListener('fetch', function(e) {
+  e.respondWith(
+    caches.match(e.request).then(function(r) {
+      console.log('[Service Worker] Fetching resource: '+e.request.url);
+      return r || fetch(e.request).then(function(response) {
+        return caches.open(cacheName).then(function(cache) {
+          console.log('[Service Worker] Caching new resource: '+e.request.url);
+          cache.put(e.request, response.clone());
+          return response;
+        });
+      });
+    })
+  );
+});
