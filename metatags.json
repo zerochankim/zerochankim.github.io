@@ -1,12 +1,12 @@
 {
 	"name": "HYUNDAICARD",
 	"short_name": "HYUNDAICARD",
-	"start_url": "/",
+	"start_url": "index.html",
 	"background_color": "#9F0C3F",
 	"theme_color": "#fff1e0",
 	"display": "standalone",
 	"icons": [{
-		"src": "https://www.hyundaicard.com/image/favicon/img_favicon.ico",
-		"sizes": "192x192"
+		"src": "ico.png",
+		"sizes": "90x90"
 	}]
 }
