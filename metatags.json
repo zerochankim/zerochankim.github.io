@@ -1,6 +1,6 @@
 {
-	"name": "HYUNDAICARD",
-	"short_name": "HYUNDAICARD",
+	"name": "M Special 홈화면 바로가기",
+	"short_name": "M Special",
 	"start_url": "index.html",
 	"background_color": "#9F0C3F",
 	"theme_color": "#fff1e0",
