@@ -7,6 +7,6 @@
 	"display": "standalone",
 	"icons": [{
 		"src": "ico.png",
-		"sizes": "90x90"
+		"sizes": "192x192"
 	}]
 }
